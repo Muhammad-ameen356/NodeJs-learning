@@ -45,16 +45,17 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const app = express();
 
-const fromRoutes = require('./routes/form');
+const productRoute = require('./routes/products');
 const path = require('path')
 
 // app.use middleware create karne k lye hota he 
 
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use(express.static(path.join(__dirname, 'public')))
+app.use(express.static(path.join(__dirname, 'public')));
 // app.use(express.static('public'))
-app.set("view engine", "ejs")
-app.set("views", "views")
+app.set("view engine", "ejs");
+app.set("views", "views");
+
 
 
 app.use('/', (req, res, next) => {
@@ -63,10 +64,10 @@ app.use('/', (req, res, next) => {
     next();
 })
 
-app.use('/form', fromRoutes)
+app.use('/product', productRoute)
 
 app.use('/', (req, res) => {
-    res.send("Welcome To express App")
+    res.render('home', {user: "Ameen"})
 })
 
 
