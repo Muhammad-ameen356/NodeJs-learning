@@ -44,8 +44,10 @@ const bodyParser = require("body-parser");
 const formRoutes = require("./routes/form");
 
 app.use(bodyParser.urlencoded({ extended: false }));
-
 app.use(express.static(path.join(__dirname, "public")));
+
+app.set("view engine", "ejs");
+app.set("views", "views");
 
 app.use((req, res, next) => {
   console.log(req.url);
@@ -54,8 +56,8 @@ app.use((req, res, next) => {
 
 app.use("/form", formRoutes);
 
-app.use((req, res, next) => {
-  res.send("Welcome To express app");
+app.use("/", (req, res, next) => {
+  res.render("home", {date: new Date(), name: "ameen"});
 });
 
 app.listen(3001, () => {
