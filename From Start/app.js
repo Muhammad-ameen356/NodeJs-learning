@@ -3,7 +3,6 @@
 // const fs = require('fs');
 // const path = require('path');
 
-
 // const filepath = path.join(__dirname, "data.txt");
 // const server = http.createServer((req, res) => {
 //     console.log(req.url);
@@ -35,27 +34,30 @@
 //     }
 // });
 
-
 //! Second Video
 
-const express = require("express")
+const express = require("express");
 const app = express();
+const path = require("path");
+const bodyParser = require("body-parser");
 
-const formRoutes = require('./routes/form')
+const formRoutes = require("./routes/form");
 
+app.use(bodyParser.urlencoded({ extended: false }));
+
+app.use(express.static(path.join(__dirname, "public")));
 
 app.use((req, res, next) => {
-    console.log(req.url)
-    next();
-})
+  console.log(req.url);
+  next();
+});
 
 app.use("/form", formRoutes);
+
 app.use((req, res, next) => {
-    res.send("Welcome To express app")
-})
-
-
+  res.send("Welcome To express app");
+});
 
 app.listen(3001, () => {
-    console.log("Server Run");
+  console.log("Server Run");
 });
