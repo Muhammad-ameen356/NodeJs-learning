@@ -1,0 +1,5 @@
+const products = [];
+
+class Product {
+    
+}

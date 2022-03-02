@@ -41,7 +41,7 @@ const app = express();
 const path = require("path");
 const bodyParser = require("body-parser");
 
-const formRoutes = require("./routes/form");
+const productRoute = require("./routes/products");
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, "public")));
@@ -54,7 +54,7 @@ app.use((req, res, next) => {
   next();
 });
 
-app.use("/form", formRoutes);
+app.use("/product", productRoute);
 
 app.use("/", (req, res, next) => {
   res.render("home", {date: new Date(), name: "ameen"});
