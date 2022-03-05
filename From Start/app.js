@@ -40,7 +40,17 @@ const express = require("express");
 const app = express();
 const path = require("path");
 const bodyParser = require("body-parser");
+const session = require("express-session");
 
+app.use(
+  session({
+    secret: "keyboard cat",
+    resave: false,
+    saveUninitialized: false,
+  })
+);
+
+const authRoutes = require("./routes/auth");
 const productRoute = require("./routes/products");
 
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -54,10 +64,11 @@ app.use((req, res, next) => {
   next();
 });
 
+app.use("/auth", authRoutes);
 app.use("/product", productRoute);
 
 app.use("/", (req, res, next) => {
-  res.render("home", {date: new Date(), name: "ameen"});
+  res.render("home", { date: new Date(), name: "ameen" });
 });
 
 app.listen(3001, () => {
