@@ -41,6 +41,7 @@ const app = express();
 const path = require("path");
 const bodyParser = require("body-parser");
 const session = require("express-session");
+const apiRoute = require("./routes/api");
 
 app.use(
   session({
@@ -66,6 +67,8 @@ app.use((req, res, next) => {
 
 app.use("/auth", authRoutes);
 app.use("/product", productRoute);
+
+app.use("/api", apiRoute);
 
 app.use("/", (req, res, next) => {
   res.render("home", { date: new Date(), name: "ameen" });
